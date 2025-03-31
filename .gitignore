@@ -1,0 +1,14 @@
+# Node.js dependencies
+node_modules/
+
+# Cypress artifacts (test reports, screenshots, videos)
+cypress/screenshots/
+cypress/videos/
+
+# Cypress configuration artifacts
+cypress/downloads/
+cypress/.cache/
+cypress/results/
+
+# Environment variables
+.env
