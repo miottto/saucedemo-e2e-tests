@@ -2,6 +2,7 @@
 
 describe('Saucedemo - Checkout Process Test', () => {
     beforeEach(() => {
+      // Visit the SauceDemo site and log in before each test
       cy.visit("https://www.saucedemo.com/");
       cy.get("#user-name").type("standard_user");
       cy.get("#password").type("secret_sauce");
