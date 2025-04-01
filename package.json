@@ -1,5 +1,5 @@
 {
-  "name": "cypress-e2e-tests",
+  "name": "saucedemo-e2e-tests",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,16 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/miottto/cypress-e2e-tests.git"
+    "url": "git+https://github.com/miottto/saucedemo-e2e-tests.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/miottto/cypress-e2e-tests/issues"
+    "url": "https://github.com/miottto/saucedemo-e2e-tests/issues"
   },
-  "homepage": "https://github.com/miottto/cypress-e2e-tests#readme",
+  "homepage": "https://github.com/miottto/saucedemo-e2e-tests#readme",
   "devDependencies": {
     "cypress": "^14.2.1"
   }
