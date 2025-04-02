@@ -16,14 +16,6 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v3
 
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
@@ -46,8 +38,11 @@ jobs:
         name: cypress-screenshots
         path: cypress/screenshots
 
-    - name: Upload Cypress Videos (for debugging)
+    - name: Upload Cypress Videos (always)
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: cypress-videos
         path: cypress/videos
+
+    
