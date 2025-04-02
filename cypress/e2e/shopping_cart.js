@@ -55,8 +55,8 @@ describe("Shopping Cart Functionality", () => {
         cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').click();
         cy.get(".shopping_cart_badge").should("contain", "1");
 
-        // Navigate to another page (e.g., About)
-        cy.get("a").contains("Twitter").click();  // Open external page
+        // Navigate to another page 
+        cy.visit("https://www.google.com/");  // Open external page
         cy.go("back"); // Navigate back to the app
 
         // Ensure cart still has 1 item
