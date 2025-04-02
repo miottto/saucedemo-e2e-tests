@@ -15,7 +15,7 @@ describe("Checkout Edge Cases", () => {
         cy.get(".error-message-container").should("contain", "Your cart is empty");
     });
 
-    it("Should prevent checkout with invalid inputs", () => {
+    it("Should prevent checkout without name input", () => {
         cy.get(".inventory_item").first().find(".btn_inventory").click();
         cy.get(".shopping_cart_link").click();
         cy.get('[data-test="checkout"]').click();
@@ -23,6 +23,12 @@ describe("Checkout Edge Cases", () => {
         // Leaving all fields blank
         cy.get('[data-test="continue"]').click();
         cy.get(".error-message-container").should("contain", "Error: First Name is required");
+    });
+    
+    it("Should prevent checkout with invalid ZIP Code", () => {
+        cy.get(".inventory_item").first().find(".btn_inventory").click();
+        cy.get(".shopping_cart_link").click();
+        cy.get('[data-test="checkout"]').click();
 
         // Entering invalid ZIP code
         cy.get('[data-test="firstName"]').type("Kurt");
