@@ -11,33 +11,43 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v2
-      # Check out the repository code to the runner
+      uses: actions/checkout@v3
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
 
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
-        node-version: '22.14.0'
-        cache: 'npm'  
-      # Set up the Node.js environment with the specified version and enable npm caching
+        node-version: '18'
+        cache: 'npm'
 
     - name: Install Dependencies
-      run: npm ci  
-      # Install project dependencies using a clean install
+      run: npm ci
 
     - name: Run Cypress Tests
-      run: npm run cypress:run -- --reporter junit --reporter-options "mochaFile=results/test-results.xml"
+      run: npm run cypress:run
       env:
-        CYPRESS_BASE_URL: "https://www.saucedemo.com"  
+        CYPRESS_BASE_URL: "https://www.saucedemo.com"
         CI: true
-      # Run Cypress tests with JUnit reporter and set the base URL for tests
 
-    - name: Upload Test Results
-      uses: actions/upload-artifact@v3
+    - name: Upload Cypress Screenshots (if tests fail)
+      if: failure()
+      uses: actions/upload-artifact@v4
       with:
-        name: cypress-test-results
-        path: results/test-results.xml
-      # Upload the test results as an artifact for later use
+        name: cypress-screenshots
+        path: cypress/screenshots
+
+    - name: Upload Cypress Videos (for debugging)
+      uses: actions/upload-artifact@v4
+      with:
+        name: cypress-videos
+        path: cypress/videos
