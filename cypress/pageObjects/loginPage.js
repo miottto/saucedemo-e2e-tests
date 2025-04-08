@@ -14,6 +14,10 @@ class LoginPage {
     clickLogin() {
       cy.get('[data-test="login-button"]').click();
     }
+
+    errorMessage() {
+      return cy.get('[data-test="error"]');
+    }
   
     login(username, password) {
       this.enterUsername(username);

@@ -8,14 +8,27 @@ describe('SauceDemo - Login Tests', () => {
     })
 
     it('should login with valid credentials', () => {
-       LoginPage.login('standard_user', 'secret_sauce');
+       cy.fixture('users').then((users) => {
+            const { username, password } = users.validUser; 
+       LoginPage.login(username, password);
         // Verify the user is redirected to the inventory page
         cy.url().should('include', '/inventory.html')
-    })
+        });
+    });
 
     it('should not login with invalid credentials', () => {
-        LoginPage.login('invalid_user', 'invalid_password');
+        cy.fixture('users').then((users) => {
+            const { username, password } = users.invalidUser;
+        LoginPage.login(username, password);
         // Check for error message
-        cy.get('[data-test="error"]').should('be.visible');
+        LoginPage.errorMessage().should('be.visible');
+        });
+    });
+    it('should not login and show error for locked out user', () => {
+        cy.fixture('users').then((users) => {
+            const { username, password } = users.lockedOutUser;
+        LoginPage.login(username, password);
+        LoginPage.errorMessage().should('contain.text', 'Sorry, this user has been locked out')
+        });
     });
 })
